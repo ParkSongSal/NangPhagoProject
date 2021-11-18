@@ -2,10 +2,8 @@ package com.example.nangphagoproject
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Spinner
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.room.Room
@@ -16,7 +14,8 @@ class IngredientWriteActivity : AppCompatActivity() {
 
 
     private var db: AppDataBase? = null
-
+    var keepKinds = ""
+    var kinds = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ingredient_write)
@@ -25,6 +24,9 @@ class IngredientWriteActivity : AppCompatActivity() {
         var kindsSpinner = findViewById<Spinner>(R.id.kindsSpinner)
         var cancelBtn = findViewById<Button>(R.id.cancelBtn)
         var saveBtn = findViewById<Button>(R.id.saveBtn)
+        var ingredientNameEdit = findViewById<EditText>(R.id.ingredientNameEdit)
+        var ingredientCntEdit = findViewById<EditText>(R.id.ingredientCntEdit)
+        var memoEdit = findViewById<EditText>(R.id.memoEdit)
 
         db = Room.databaseBuilder(this, AppDataBase::class.java, "IngredientTable")
             .allowMainThreadQueries()
@@ -50,7 +52,17 @@ class IngredientWriteActivity : AppCompatActivity() {
         }
 
         saveBtn.setOnClickListener{
-            val item = Ingredient("03", "냉동만두", "1", "K07","2021-11-18","2022-11-25")
+
+            kinds = kindsSpinner.selectedItem.toString()
+            val ingredientName = ingredientNameEdit.text.toString()
+            val ingredientCnt = ingredientCntEdit.text.toString()
+            val mMemoContent = memoEdit.text.toString()
+            val item = Ingredient(keepKinds,
+                                  ingredientName,
+                                  ingredientCnt,
+                                  kinds,
+                                  "2021-11-18","2022-11-25",
+                                  mMemoContent)
 
             db!!.IngredientDao().insertTodo(item)
 
@@ -61,6 +73,22 @@ class IngredientWriteActivity : AppCompatActivity() {
         }
     }
 
+    fun onClick(view: View) {
+        when(view.id){
+            // 01 = 실온
+            R.id.keepKindsBtn1->{
+                keepKinds = "01"
+            }
+            // 02 = 냉장
+            R.id.keepKindsBtn2->{
+                keepKinds = "02"
+            }
+            // 03 = 냉동
+            R.id.keepKindsBtn3->{
+                keepKinds = "03"
+            }
+        }
+    }
 
 
 }
