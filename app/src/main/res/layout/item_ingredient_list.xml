@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1.7"
+            android:layout_marginRight="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:id="@+id/ingredientNameTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:gravity="start"
+                    android:text="양파"
+                    android:layout_gravity="center"
+                    android:textSize="21sp"
+                    android:ellipsize="marquee"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/ingredientCntTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:paddingRight="10dp"
+                    android:gravity="start"
+                    android:text="2개"
+                    android:layout_gravity="center"
+                    android:textSize="21sp"
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:layout_marginLeft="10dp"
+                    android:paddingEnd="10dp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/kindsTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:gravity="bottom"
+                    android:text="채소류"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="10dp" />
+
+                <TextView
+                    android:id="@+id/purchaseDateTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:gravity="bottom"
+                    android:text="2019-11-25"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/d_dayTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="D-7"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="24sp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
