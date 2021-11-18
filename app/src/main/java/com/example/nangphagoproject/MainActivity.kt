@@ -6,9 +6,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.nangphagoproject.Adapter.IngredientDataAdapter
 import com.example.nangphagoproject.Room.AppDataBase
 import com.example.nangphagoproject.Room.Ingredient
+import com.example.nangphagoproject.Utils.Common
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
@@ -74,7 +77,8 @@ class MainActivity : AppCompatActivity() {
                 db!!.IngredientDao().getKindsList(keepKinds)[i].ingredientCnt,
                 db!!.IngredientDao().getKindsList(keepKinds)[i].kinds,
                 db!!.IngredientDao().getKindsList(keepKinds)[i].purchaseDate,
-                db!!.IngredientDao().getKindsList(keepKinds)[i].shelfLife
+                db!!.IngredientDao().getKindsList(keepKinds)[i].shelfLife,
+                db!!.IngredientDao().getKindsList(keepKinds)[i].memoContent
             )
             mDataList.add(ingredient)
             mAdapter = IngredientDataAdapter(this@MainActivity, mDataList)
@@ -135,7 +139,8 @@ class MainActivity : AppCompatActivity() {
         ingredientCnt: String,
         kinds: String,
         purchaseDate: String,
-        shelfLife: String
+        shelfLife: String,
+        memoContent : String
     ){
 
         val item = Ingredient(
@@ -144,8 +149,22 @@ class MainActivity : AppCompatActivity() {
             ingredientCnt,
             kinds,
             purchaseDate,
-            shelfLife
+            shelfLife,
+            memoContent
         )
         mDataList.add(item)
+    }
+
+    // Migration 코드
+    private val MIGRATION_3_4 = object : Migration(2, 3) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("ALTER TABLE 'Ingredient' ADD COLUMN 'memoContent' String")
+        }
+    }
+    // Migration 코드
+    private val MIGRATION_2_3 = object : Migration(2, 3) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("Delete FROM 'Ingredient'")
+        }
     }
 }
