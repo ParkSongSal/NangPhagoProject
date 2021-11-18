@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.nangphagoproject.Model.Ingredient
 import com.example.nangphagoproject.R
+import com.example.nangphagoproject.Room.Ingredient
 import com.example.nangphagoproject.Utils.Common
 import org.greenrobot.eventbus.EventBus
 

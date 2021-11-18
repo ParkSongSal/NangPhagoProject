@@ -5,8 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.example.nangphagoproject.Adapter.IngredientDataAdapter
-import com.example.nangphagoproject.Model.Ingredient
+import com.example.nangphagoproject.Room.AppDataBase
+import com.example.nangphagoproject.Room.Ingredient
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
@@ -19,6 +21,9 @@ class MainActivity : AppCompatActivity() {
     private var mDataList: MutableList<Ingredient> = arrayListOf()
     private var mAdapter: IngredientDataAdapter? = null
     lateinit var recyclerView : RecyclerView
+
+    private var db: AppDataBase? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -26,6 +31,13 @@ class MainActivity : AppCompatActivity() {
         var tabLayout = findViewById<TabLayout>(R.id.tabLayout)
         recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         var fab = findViewById<FloatingActionButton>(R.id.fab)
+
+        db = Room.databaseBuilder(this, AppDataBase::class.java, "IngredientTable")
+            .allowMainThreadQueries()
+            .build()
+
+        // 실온 데이터 가져오기
+        getKindsList("01")
 
         tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
@@ -39,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
         })
-        dummyData(1, "1", "양파", "2", "K01", "2021-11-07", "2021-11-14")
+        //dummyData(1, "1", "양파", "2", "K01", "2021-11-07", "2021-11-14")
 
 
         mAdapter = IngredientDataAdapter(applicationContext, mDataList)
@@ -51,6 +63,23 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
+    }
+
+    private fun getKindsList(keepKinds : String) {
+        for (i in 0 until db?.IngredientDao()?.getKindsList(keepKinds)?.size!!) {
+
+            val ingredient = Ingredient(
+                db!!.IngredientDao().getKindsList(keepKinds)[i].keepKinds,
+                db!!.IngredientDao().getKindsList(keepKinds)[i].ingredientName,
+                db!!.IngredientDao().getKindsList(keepKinds)[i].ingredientCnt,
+                db!!.IngredientDao().getKindsList(keepKinds)[i].kinds,
+                db!!.IngredientDao().getKindsList(keepKinds)[i].purchaseDate,
+                db!!.IngredientDao().getKindsList(keepKinds)[i].shelfLife
+            )
+            mDataList.add(ingredient)
+            mAdapter = IngredientDataAdapter(this@MainActivity, mDataList)
+            recyclerView.adapter = mAdapter
+        }
     }
 
     override fun onStart() {
@@ -82,13 +111,16 @@ class MainActivity : AppCompatActivity() {
         mDataList.clear()
         when (pos) {
             0 -> {
-                dummyData(1, "1", "양파", "2", "K01", "2021-11-07", "2021-11-14")
+                getKindsList("01")  // 실온
+                //dummyData(1, "1", "양파", "2", "K01", "2021-11-07", "2021-11-14")
             }
             1 -> {
-                dummyData(2, "2", "대파", "1", "K01", "2021-11-07", "2021-11-14")
+                getKindsList("02")  // 냉장
+                //dummyData(2, "2", "대파", "1", "K01", "2021-11-07", "2021-11-14")
             }
             2 -> {
-                dummyData(3, "3", "돼지고기", "2", "K02", "2021-11-07", "2021-11-12")
+                getKindsList("03")  // 냉동
+                //dummyData(3, "3", "돼지고기", "2", "K02", "2021-11-07", "2021-11-12")
             }
         }
         mAdapter = IngredientDataAdapter(applicationContext, mDataList)
@@ -107,7 +139,6 @@ class MainActivity : AppCompatActivity() {
     ){
 
         val item = Ingredient(
-            id,
             keepKinds,
             ingredientName,
             ingredientCnt,
