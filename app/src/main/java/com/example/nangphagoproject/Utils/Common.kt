@@ -1,7 +1,5 @@
 package com.example.nangphagoproject.Utils
 
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
@@ -50,6 +48,19 @@ class Common {
 
         return calDateDays
     }
+
+    //현재 시간
+    open fun nowDate(format: String?): String? {
+        // 현재시간을 msec 으로 구한다.
+        val now = System.currentTimeMillis()
+        // 현재시간을 date 변수에 저장한다.
+        val nowdate = Date(now)
+        // 시간을 나타냇 포맷을 정한다 ( yyyy/MM/dd 같은 형태로 변형 가능 )
+        val sdfNow = SimpleDateFormat(format)
+        // nowDate 변수에 값을 저장한다.
+        return sdfNow.format(nowdate)
+    }
+
 
 
 }

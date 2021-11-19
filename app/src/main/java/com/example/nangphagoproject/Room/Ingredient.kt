@@ -15,7 +15,7 @@ class Ingredient {
     var ingredientName: String? = ""        // 재료명
     var ingredientCnt: String? = ""        // 재료갯수
     var kinds: String? = ""                // 재료 종류
-    var purchaseDate: String = ""          // 구입일자
+    var purchaseDate: String? = ""          // 구입일자
     var shelfLife: String = ""             // 유통기한일자
     var memoContent: String = ""          // 메모내용
 
@@ -24,7 +24,7 @@ class Ingredient {
         ingredientName: String?,
         ingredientCnt: String?,
         kinds: String?,
-        purchaseDate: String,
+        purchaseDate: String?,
         shelfLife: String,
         memoContent: String
     ) {
