@@ -17,6 +17,9 @@ public interface IngredientDao {
     @Query("SELECT * FROM `Ingredient` WHERE keepKinds = :keepKinds")
     List<Ingredient> getKindsList(String keepKinds);
 
+    @Query("SELECT * FROM `Ingredient` WHERE id = :id")
+    Ingredient getItem(Long id);
+
     @Insert
     void insertTodo(Ingredient ingredient);
 

@@ -3,6 +3,7 @@ package com.example.nangphagoproject
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -72,6 +73,7 @@ class MainActivity : AppCompatActivity() {
         for (i in 0 until db?.IngredientDao()?.getKindsList(keepKinds)?.size!!) {
 
             val ingredient = Ingredient(
+                db!!.IngredientDao().getKindsList(keepKinds)[i].id,
                 db!!.IngredientDao().getKindsList(keepKinds)[i].keepKinds,
                 db!!.IngredientDao().getKindsList(keepKinds)[i].ingredientName,
                 db!!.IngredientDao().getKindsList(keepKinds)[i].ingredientCnt,
@@ -80,6 +82,8 @@ class MainActivity : AppCompatActivity() {
                 db!!.IngredientDao().getKindsList(keepKinds)[i].shelfLife,
                 db!!.IngredientDao().getKindsList(keepKinds)[i].memoContent
             )
+            //val idIngredient = Ingredient(db!!.IngredientDao().getKindsList(keepKinds)[i].id)
+
             mDataList.add(ingredient)
             mAdapter = IngredientDataAdapter(this@MainActivity, mDataList)
             recyclerView.adapter = mAdapter
@@ -100,11 +104,16 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("RestrictedApi")
     @Subscribe
     fun onItemClick(event: IngredientDataAdapter.ItemClickEvent) {
-        val ingredient : Ingredient = mDataList.get(event.position)
+        Log.d("TAG","event ID : " + event.id)
+        Log.d("TAG","mDataList event ID : " + mDataList[event.position].id)
+
+        val ingredient : Ingredient? = db?.IngredientDao()?.getItem(event.id)
+        Log.d("TAG","ingredient : ${ingredient.toString()}" )
+        //val ingredient : Ingredient = mDataList.get(event.id)
 
         val intent = Intent(this@MainActivity, IngredientDetailActivity::class.java)
         intent.putExtra("id", event.id)
-        intent.putExtra("position", event.position)
+        intent.putExtra("ingredient", ingredient)
         startActivity(intent)
         finish()
 
@@ -144,6 +153,7 @@ class MainActivity : AppCompatActivity() {
     ){
 
         val item = Ingredient(
+            id,
             keepKinds,
             ingredientName,
             ingredientCnt,

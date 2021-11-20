@@ -3,13 +3,14 @@ package com.example.nangphagoproject.Room
 import androidx.room.Database
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity
 @Database(version = 2 , entities = [Ingredient::class])
-class Ingredient {
+class Ingredient : Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
+    var id: Long? = 0
 
     var keepKinds: String? = ""            // 보관 ( 실온, 냉장, 냉동) 구분
     var ingredientName: String? = ""        // 재료명
@@ -20,6 +21,7 @@ class Ingredient {
     var memoContent: String = ""          // 메모내용
 
     constructor(
+        id : Long?,
         keepKinds: String?,
         ingredientName: String?,
         ingredientCnt: String?,
@@ -28,6 +30,7 @@ class Ingredient {
         shelfLife: String,
         memoContent: String
     ) {
+        this.id = id
         this.keepKinds = keepKinds
         this.ingredientName = ingredientName
         this.ingredientCnt = ingredientCnt
@@ -36,6 +39,7 @@ class Ingredient {
         this.shelfLife = shelfLife
         this.memoContent = memoContent
     }
+
 
     override fun toString(): String {
         return "Ingredient(id=$id, keepKinds=$keepKinds, ingredientName=$ingredientName, ingredientCnt=$ingredientCnt, kinds=$kinds, purchaseDate='$purchaseDate', shelfLife='$shelfLife', memoContent='$memoContent')"

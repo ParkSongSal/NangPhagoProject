@@ -73,7 +73,8 @@ class IngredientWriteActivity : AppCompatActivity() {
             val purchaseDate = purchaseDateEdit?.text.toString()
             val shelfLife = shelfLifeEdit?.text.toString()
             val mMemoContent = memoEdit.text.toString()
-            val item = Ingredient(keepKinds,
+            val item = Ingredient(null,
+                                  keepKinds,
                                   ingredientName,
                                   mIngredientCnt,
                                   kinds,

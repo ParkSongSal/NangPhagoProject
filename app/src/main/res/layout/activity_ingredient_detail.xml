@@ -76,40 +76,16 @@
                 android:text="보관장소"
                 android:textSize="20sp" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/keepKindsTxt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorWhite"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="6dp">
-
-                <Button
-                    android:id="@+id/keepKindsBtn1"
-                    android:layout_width="70dp"
-                    android:layout_height="40dp"
-                    android:background="@color/colorGrayDark"
-                    android:gravity="center"
-                    android:text="선반" />
-
-                <Button
-                    android:id="@+id/keepKindsBtn2"
-                    android:layout_width="70dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginEnd="6dp"
-                    android:background="@color/colorAccent"
-                    android:text="냉장"
-                    android:textColor="@color/colorWhite"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/keepKindsBtn3"
-                    android:layout_width="70dp"
-                    android:layout_height="40dp"
-                    android:background="@color/colorGrayDark"
-                    android:text="냉동" />
-            </LinearLayout>
+                android:paddingStart="10dp"
+                android:gravity="center|start"
+                android:text="실내"
+                android:textColorHint="@color/colorPrimary"
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -174,10 +150,63 @@
             </LinearLayout>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/memoEdit"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="8dp"
+                android:background="@color/colorWhite"
+                android:gravity="center"
+                android:text="구매일자"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/purchaseDateTxt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite"
+                android:paddingStart="10dp"
+                android:gravity="center|start"
+                android:text="2021년 11월 15일"
+                android:textColorHint="@color/colorPrimary"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="8dp"
+                android:background="@color/colorWhite"
+                android:gravity="center"
+                android:text="유통기한"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/shelfLifeTxt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite"
+                android:paddingStart="10dp"
+                android:gravity="center|start"
+                android:text="2021년 11월 23일"
+                android:textColorHint="@color/colorPrimary"
+                android:textSize="20sp" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/memoTxt"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
             android:background="@color/colorWhite"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
@@ -195,22 +224,24 @@
 
 
             <Button
-                android:id="@+id/cancelBtn"
+                android:id="@+id/delBtn"
                 android:layout_width="120dp"
                 android:layout_height="match_parent"
                 android:text="삭제"
                 android:layout_marginEnd="20dp"
+                android:onClick="onClick"
                 android:textSize="18sp"
                 android:background="@color/colorGrayDark"/>
 
             <Button
-                android:id="@+id/saveBtn"
+                android:id="@+id/updateBtn"
                 android:layout_width="120dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:text="수정"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
+                android:onClick="onClick"
                 android:textSize="18sp"
                 android:background="@color/colorAccent"/>
 

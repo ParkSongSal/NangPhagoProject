@@ -22,7 +22,7 @@ open class IngredientDataAdapter(
     class ItemClickEvent     //this.id = id;
         (  //public long id;
         var position: Int,
-        var id : Long
+        var id: Long?
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, i: Int): ViewHolder {
