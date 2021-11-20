@@ -24,6 +24,9 @@ class IngredientWriteActivity : AppCompatActivity() {
     var kinds = ""
     var purchaseDateEdit : EditText? = null
     var shelfLifeEdit : EditText? = null
+    var ingredientCntEdit : EditText? = null
+    var ingredientCnt = 0
+    var ingredientCntTxt = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ingredient_write)
@@ -33,7 +36,7 @@ class IngredientWriteActivity : AppCompatActivity() {
         var cancelBtn = findViewById<Button>(R.id.cancelBtn)
         var saveBtn = findViewById<Button>(R.id.saveBtn)
         var ingredientNameEdit = findViewById<EditText>(R.id.ingredientNameEdit)
-        var ingredientCntEdit = findViewById<EditText>(R.id.ingredientCntEdit)
+        ingredientCntEdit = findViewById<EditText>(R.id.ingredientCntEdit)
         var memoEdit = findViewById<EditText>(R.id.memoEdit)
         purchaseDateEdit = findViewById<EditText>(R.id.purchaseDateEdit)
         shelfLifeEdit = findViewById<EditText>(R.id.shelfLifeEdit)
@@ -66,13 +69,13 @@ class IngredientWriteActivity : AppCompatActivity() {
 
             kinds = kindsSpinner.selectedItem.toString()
             val ingredientName = ingredientNameEdit.text.toString()
-            val ingredientCnt = ingredientCntEdit.text.toString()
+            val mIngredientCnt = ingredientCntEdit?.text.toString()
             val purchaseDate = purchaseDateEdit?.text.toString()
             val shelfLife = shelfLifeEdit?.text.toString()
             val mMemoContent = memoEdit.text.toString()
             val item = Ingredient(keepKinds,
                                   ingredientName,
-                                  ingredientCnt,
+                                  mIngredientCnt,
                                   kinds,
                                   purchaseDate,
                                   shelfLife,
@@ -192,6 +195,24 @@ class IngredientWriteActivity : AppCompatActivity() {
             // 03 = 냉동
             R.id.keepKindsBtn3->{
                 keepKinds = "03"
+            }
+            R.id.minusBtn->{
+                if(ingredientCnt == 0){
+                    Toast.makeText(applicationContext, "0개보다 작게 입력할 수 없습니다.",Toast.LENGTH_SHORT).show()
+                }else{
+                    ingredientCnt--
+                    ingredientCntTxt = ingredientCnt.toString()
+                    ingredientCntEdit?.setText(ingredientCntTxt + "ea")
+                }
+            }
+            R.id.plusBtn->{
+                if(ingredientCnt > 100){
+                    Toast.makeText(applicationContext, "100개보다 많게 입력할 수 없습니다.",Toast.LENGTH_SHORT).show()
+                }else{
+                    ingredientCnt++
+                    ingredientCntTxt = ingredientCnt.toString()
+                    ingredientCntEdit?.setText(ingredientCntTxt + "ea")
+                }
             }
         }
     }
