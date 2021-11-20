@@ -1,7 +1,9 @@
 package com.example.nangphagoproject
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -12,10 +14,16 @@ import com.example.nangphagoproject.Room.Ingredient
 
 class IngredientWriteActivity : AppCompatActivity() {
 
+    // DatePickerDialog 선
+    var dateCallbackMethod: DatePickerDialog.OnDateSetListener? = null
+    var dateCallbackMethod2: DatePickerDialog.OnDateSetListener? = null
+
 
     private var db: AppDataBase? = null
     var keepKinds = ""
     var kinds = ""
+    var purchaseDateEdit : EditText? = null
+    var shelfLifeEdit : EditText? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ingredient_write)
@@ -27,10 +35,13 @@ class IngredientWriteActivity : AppCompatActivity() {
         var ingredientNameEdit = findViewById<EditText>(R.id.ingredientNameEdit)
         var ingredientCntEdit = findViewById<EditText>(R.id.ingredientCntEdit)
         var memoEdit = findViewById<EditText>(R.id.memoEdit)
-
+        purchaseDateEdit = findViewById<EditText>(R.id.purchaseDateEdit)
+        shelfLifeEdit = findViewById<EditText>(R.id.shelfLifeEdit)
         db = Room.databaseBuilder(this, AppDataBase::class.java, "IngredientTable")
             .allowMainThreadQueries()
             .build()
+
+        this.InitializeListener()
 
 
         toolbar.setTitleTextColor(getColor(R.color.colorPrimaryDark))
@@ -56,12 +67,15 @@ class IngredientWriteActivity : AppCompatActivity() {
             kinds = kindsSpinner.selectedItem.toString()
             val ingredientName = ingredientNameEdit.text.toString()
             val ingredientCnt = ingredientCntEdit.text.toString()
+            val purchaseDate = purchaseDateEdit?.text.toString()
+            val shelfLife = shelfLifeEdit?.text.toString()
             val mMemoContent = memoEdit.text.toString()
             val item = Ingredient(keepKinds,
                                   ingredientName,
                                   ingredientCnt,
                                   kinds,
-                                  "2021-11-18","2022-11-25",
+                                  purchaseDate,
+                                  shelfLife,
                                   mMemoContent)
 
             db!!.IngredientDao().insertTodo(item)
@@ -71,8 +85,100 @@ class IngredientWriteActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        purchaseDateEdit?.onFocusChangeListener =
+            View.OnFocusChangeListener { view, hasFocus ->
+                if (hasFocus) {
+                    //  .. 포커스시
+                    val dialog = DatePickerDialog(this, dateCallbackMethod, 2021, 6, 10)
+
+                    dialog.show()
+                } else {
+                    //  .. 포커스 뺏겼을 때
+                }
+            }
+        shelfLifeEdit?.onFocusChangeListener =
+            View.OnFocusChangeListener { view, hasFocus ->
+                if (hasFocus) {
+                    //  .. 포커스시
+                    val dialog = DatePickerDialog(this, dateCallbackMethod2, 2021, 6, 10)
+
+                    dialog.show()
+                } else {
+                    //  .. 포커스 뺏겼을 때
+                }
+            }
     }
 
+    fun InitializeListener() {
+        dateCallbackMethod =
+            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                val month = when (monthOfYear + 1) {
+                    1 -> "01"
+                    2 -> "02"
+                    3 -> "03"
+                    4 -> "04"
+                    5 -> "05"
+                    6 -> "06"
+                    7 -> "07"
+                    8 -> "08"
+                    9 -> "09"
+                    else -> monthOfYear.toString()
+                }
+                val day = when (dayOfMonth) {
+                    1 -> "01"
+                    2 -> "02"
+                    3 -> "03"
+                    4 -> "04"
+                    5 -> "05"
+                    6 -> "06"
+                    7 -> "07"
+                    8 -> "08"
+                    9 -> "09"
+                    else -> dayOfMonth.toString()
+                }
+
+                purchaseDateEdit?.setText(
+                    "$year-$month-$day"
+                )
+                purchaseDateEdit?.clearFocus()
+            }
+
+        dateCallbackMethod2 =
+            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                val month = when (monthOfYear + 1) {
+                    1 -> "01"
+                    2 -> "02"
+                    3 -> "03"
+                    4 -> "04"
+                    5 -> "05"
+                    6 -> "06"
+                    7 -> "07"
+                    8 -> "08"
+                    9 -> "09"
+                    else -> monthOfYear.toString()
+                }
+                val day = when (dayOfMonth) {
+                    1 -> "01"
+                    2 -> "02"
+                    3 -> "03"
+                    4 -> "04"
+                    5 -> "05"
+                    6 -> "06"
+                    7 -> "07"
+                    8 -> "08"
+                    9 -> "09"
+                    else -> dayOfMonth.toString()
+                }
+
+                shelfLifeEdit?.setText(
+                    "$year-$month-$day"
+                )
+                shelfLifeEdit?.clearFocus()
+
+            }
+
+    }
     fun onClick(view: View) {
         when(view.id){
             // 01 = 실온

@@ -33,7 +33,7 @@ class Common {
     * shelfLife 유통기한일자
     * return calDateDays 유통기한 D-Day
     * */
-    open fun getShelfLife(purchaseDate : String, shelfLife : String): Long {
+    open fun getShelfLife(purchaseDate : String?, shelfLife : String): Long {
 
         val  format : SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
         // date1, date2 두 날짜를 parse()를 통해 Date형으로 변환.
