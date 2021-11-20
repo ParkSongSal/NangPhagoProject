@@ -21,23 +21,13 @@ public interface IngredientDao {
     Ingredient getItem(Long id);
 
     @Insert
-    void insertTodo(Ingredient ingredient);
-
-
-    /*@Query("UPDATE `Ingredient` SET title =:check, checkGb=:checkGb WHERE id = :id")
-    void updateTodo2(String check,Integer checkGb,long id);*/
+    void insertIngredient(Ingredient ingredient);
 
     @Query("DELETE FROM `Ingredient` WHERE id = :id" )
-    void deletePlan(int id);
+    void deleteIngredient(Long id);
 
 
     @Query("DELETE FROM `Ingredient`" )
-    void deleteTodo();
-
-    @Update
-    void updateTodo(Ingredient plan);
-
-    @Query("SELECT COUNT(id) FROM `Ingredient`")
-    int getCount();
+    void deleteAll();
 
 }

@@ -82,7 +82,7 @@ class IngredientWriteActivity : AppCompatActivity() {
                                   shelfLife,
                                   mMemoContent)
 
-            db!!.IngredientDao().insertTodo(item)
+            db!!.IngredientDao().insertIngredient(item)
 
             val intent = Intent(applicationContext, MainActivity::class.java)
             Toast.makeText(applicationContext, "저장 되었습니다.", Toast.LENGTH_SHORT).show()
