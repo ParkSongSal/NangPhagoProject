@@ -104,13 +104,8 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("RestrictedApi")
     @Subscribe
     fun onItemClick(event: IngredientDataAdapter.ItemClickEvent) {
-        Log.d("TAG","event ID : " + event.id)
-        Log.d("TAG","mDataList event ID : " + mDataList[event.position].id)
 
         val ingredient : Ingredient? = db?.IngredientDao()?.getItem(event.id)
-        Log.d("TAG","ingredient : ${ingredient.toString()}" )
-        //val ingredient : Ingredient = mDataList.get(event.id)
-
         val intent = Intent(this@MainActivity, IngredientDetailActivity::class.java)
         intent.putExtra("id", event.id)
         intent.putExtra("ingredient", ingredient)
