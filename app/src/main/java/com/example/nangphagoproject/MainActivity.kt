@@ -135,6 +135,10 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = mAdapter
     }
 
+    override fun onDestroy() {
+        db = null
+        super.onDestroy()
+    }
 
     private fun dummyData(
         id: Long,

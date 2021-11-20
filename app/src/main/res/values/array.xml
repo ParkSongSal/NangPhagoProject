@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+
     <string-array name="kinds">
         <item>채소류</item>
         <item>육류</item>
