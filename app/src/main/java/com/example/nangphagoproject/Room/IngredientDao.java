@@ -25,6 +25,13 @@ public interface IngredientDao {
     List<Ingredient> getKindsList(String keepKinds);
 
     /**
+     * 재료 검색
+     * param : ingredientName
+     * */
+    @Query("SELECT * FROM `Ingredient` WHERE ingredientName like '%' || :ingredientName || '%'")
+    List<Ingredient> getSearchIngredientName(String ingredientName);
+
+    /**
      * 재료 상세 조회
      * param : id
      */

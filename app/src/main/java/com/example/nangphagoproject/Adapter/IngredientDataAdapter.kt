@@ -18,6 +18,10 @@ open class IngredientDataAdapter(
 ) : RecyclerView.Adapter<IngredientDataAdapter.ViewHolder>(){
 
 
+    open fun swap(newIngredientList: MutableList<Ingredient>) {
+        mData = newIngredientList
+        notifyDataSetChanged()
+    }
     //Event Bus 클래스
     class ItemClickEvent     //this.id = id;
         (  //public long id;

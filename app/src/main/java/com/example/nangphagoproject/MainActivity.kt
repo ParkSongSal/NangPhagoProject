@@ -3,19 +3,18 @@ package com.example.nangphagoproject
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.widget.Toast
+
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.nangphagoproject.Adapter.IngredientDataAdapter
 import com.example.nangphagoproject.Room.AppDataBase
 import com.example.nangphagoproject.Room.Ingredient
-import com.example.nangphagoproject.Utils.Common
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import com.google.android.material.tabs.TabLayout.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
@@ -32,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val searchView = findViewById<SearchView>(R.id.Search_view)
         var tabLayout = findViewById<TabLayout>(R.id.tabLayout)
         recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         var fab = findViewById<FloatingActionButton>(R.id.fab)
@@ -65,9 +65,43 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
+
+        searchView.setIconifiedByDefault(false)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean { //완료누르면
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean { //변경될때마다
+                mDataList.clear()
+                if("" == newText || newText.isEmpty()){
+                    tabLayout.visibility = VISIBLE
+                    getKindsList("01")
+                }else{
+                    tabLayout.visibility = GONE
+                    for (i in 0 until db?.IngredientDao()?.getSearchIngredientName(newText)?.size!!) {
+
+                        val ingredient = Ingredient(
+                            db!!.IngredientDao().getSearchIngredientName(newText)[i].id,
+                            db!!.IngredientDao().getSearchIngredientName(newText)[i].keepKinds,
+                            db!!.IngredientDao().getSearchIngredientName(newText)[i].ingredientName,
+                            db!!.IngredientDao().getSearchIngredientName(newText)[i].ingredientCnt,
+                            db!!.IngredientDao().getSearchIngredientName(newText)[i].kinds,
+                            db!!.IngredientDao().getSearchIngredientName(newText)[i].purchaseDate,
+                            db!!.IngredientDao().getSearchIngredientName(newText)[i].shelfLife,
+                            db!!.IngredientDao().getSearchIngredientName(newText)[i].memoContent
+                        )
+                        mDataList.add(ingredient)
+                        mAdapter!!.swap(mDataList)
+                    }
+                }
+                return true
+            }
+        })
+
     }
 
-    private fun getKindsList(keepKinds : String) {
+    private fun getKindsList(keepKinds: String) {
         for (i in 0 until db?.IngredientDao()?.getKindsList(keepKinds)?.size!!) {
 
             val ingredient = Ingredient(
