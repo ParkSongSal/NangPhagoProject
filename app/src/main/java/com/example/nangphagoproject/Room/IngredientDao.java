@@ -55,8 +55,4 @@ public interface IngredientDao {
     @Query("DELETE FROM `Ingredient` WHERE id = :id" )
     void deleteIngredient(Long id);
 
-
-    @Query("DELETE FROM `Ingredient`" )
-    void deleteAll();
-
 }

@@ -43,12 +43,10 @@ class IngredientUpdateActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ingredient_update)
 
-        var toolbar = findViewById<Toolbar>(R.id.toolbar)
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
         keepKindsBtn1 = findViewById<Button>(R.id.keepKindsBtn1)
         keepKindsBtn2 = findViewById<Button>(R.id.keepKindsBtn2)
         keepKindsBtn3 = findViewById<Button>(R.id.keepKindsBtn3)
-        var cancelBtn = findViewById<Button>(R.id.cancelBtn)
-        var saveBtn = findViewById<Button>(R.id.saveBtn)
 
         kindsSpinner = findViewById<Spinner>(R.id.kindsSpinner)
         ingredientNameEdit = findViewById<EditText>(R.id.ingredientNameEdit)

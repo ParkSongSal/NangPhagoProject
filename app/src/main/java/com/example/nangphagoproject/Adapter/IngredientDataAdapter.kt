@@ -22,8 +22,11 @@ open class IngredientDataAdapter(
         mData = newIngredientList
         notifyDataSetChanged()
     }
-    //Event Bus 클래스
-    class ItemClickEvent     //this.id = id;
+    /*
+        Event Bus 클래스
+        목록화면에서 재료 클릭시 사용
+    */
+    class ItemClickEvent
         (  //public long id;
         var position: Int,
         var id: Long?
@@ -43,14 +46,21 @@ open class IngredientDataAdapter(
         val common = Common()
         val keepKinds = common.keepKindsFormat(mData[position].keepKinds.toString())
 
+        // 보관방법
         viewHolder.keepKindsTxt.text = keepKinds
+
+        // 재료 종류
         viewHolder.kindsTxt.text = mData[position].kinds
+
+        // 구입일자
         viewHolder.purchaseDateTxt.text = mData[position].purchaseDate
 
+        // 남은 유통기한일자
         val dDay = common.getShelfLife(mData[position].purchaseDate, mData[position].shelfLife)
         viewHolder.dDayTxt.text = "D -$dDay"
 
-        viewHolder.itemView.setOnClickListener { // MainActivity에 onItemClick이 받음
+        viewHolder.itemView.setOnClickListener {
+            // MainActivity에 onItemClick이 받음
             EventBus.getDefault().post(ItemClickEvent(position, mData[position].id))
 
         }

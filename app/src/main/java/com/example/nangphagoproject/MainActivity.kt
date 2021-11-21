@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -32,9 +33,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val searchView = findViewById<SearchView>(R.id.Search_view)
-        var tabLayout = findViewById<TabLayout>(R.id.tabLayout)
+        val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
         recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        var fab = findViewById<FloatingActionButton>(R.id.fab)
+        val fab = findViewById<FloatingActionButton>(R.id.fab)
 
         db = Room.databaseBuilder(this, AppDataBase::class.java, "IngredientTable")
             .allowMainThreadQueries()
@@ -59,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         mAdapter = IngredientDataAdapter(applicationContext, mDataList)
         recyclerView.adapter = mAdapter
 
+        // 재료 등록 버튼 클릭 리스너
         fab.setOnClickListener{
             intent = Intent(this@MainActivity, IngredientWriteActivity::class.java)
             startActivity(intent)
@@ -66,6 +68,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        // 검색뷰
         searchView.setIconifiedByDefault(false)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean { //완료누르면
@@ -74,12 +77,14 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String): Boolean { //변경될때마다
                 mDataList.clear()
-                if("" == newText || newText.isEmpty()){
+                if ("" == newText || newText.isEmpty()) {
+                    // 검색할 내용이 없으면 실온 데이터 불러오기
                     tabLayout.visibility = VISIBLE
                     getKindsList("01")
-                }else{
+                } else {
                     tabLayout.visibility = GONE
-                    for (i in 0 until db?.IngredientDao()?.getSearchIngredientName(newText)?.size!!) {
+                    for (i in 0 until db?.IngredientDao()
+                        ?.getSearchIngredientName(newText)?.size!!) {
 
                         val ingredient = Ingredient(
                             db!!.IngredientDao().getSearchIngredientName(newText)[i].id,

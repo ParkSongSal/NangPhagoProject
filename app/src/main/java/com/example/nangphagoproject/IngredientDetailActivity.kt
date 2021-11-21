@@ -23,14 +23,14 @@ class IngredientDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ingredient_detail)
 
-        var toolbar = findViewById<Toolbar>(R.id.toolbar)
-        var ingredientNameTxt = findViewById<TextView>(R.id.ingredientNameTxt)
-        var keepKindsTxt = findViewById<TextView>(R.id.keepKindsTxt)
-        var kindsTxt = findViewById<TextView>(R.id.kindsTxt)
-        var ingredientCntTxt = findViewById<TextView>(R.id.ingredientCntTxt)
-        var purchaseDateTxt = findViewById<TextView>(R.id.purchaseDateTxt)
-        var shelfLifeTxt = findViewById<TextView>(R.id.shelfLifeTxt)
-        var memoTxt = findViewById<TextView>(R.id.memoTxt)
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        val ingredientNameTxt = findViewById<TextView>(R.id.ingredientNameTxt)
+        val keepKindsTxt = findViewById<TextView>(R.id.keepKindsTxt)
+        val kindsTxt = findViewById<TextView>(R.id.kindsTxt)
+        val ingredientCntTxt = findViewById<TextView>(R.id.ingredientCntTxt)
+        val purchaseDateTxt = findViewById<TextView>(R.id.purchaseDateTxt)
+        val shelfLifeTxt = findViewById<TextView>(R.id.shelfLifeTxt)
+        val memoTxt = findViewById<TextView>(R.id.memoTxt)
 
         toolbar.setTitleTextColor(getColor(R.color.colorPrimaryDark))
         toolbar.title = "재료상세"
@@ -49,13 +49,13 @@ class IngredientDetailActivity : AppCompatActivity() {
             id = ingredient?.id
             ingredientNameTxt.text = ingredient?.ingredientName
             when(ingredient?.keepKinds){
-                "01"->{
+                "01" -> {
                     keepKindsTxt.text = "실온"
                 }
-                "02"->{
+                "02" -> {
                     keepKindsTxt.text = "냉장"
                 }
-                "03"->{
+                "03" -> {
                     keepKindsTxt.text = "냉동"
                 }
             }
@@ -77,15 +77,18 @@ class IngredientDetailActivity : AppCompatActivity() {
             // 삭제 버튼
             R.id.delBtn -> {
                 dlg.setTitle("해당 재료를 삭제하시겠습니까?")
-                .setPositiveButton("예") { dialog, which ->
-                    deleteIngredient()
-                }
-                .setNegativeButton("아니오",null)
-                .show()
+                    .setPositiveButton("예") { dialog, which ->
+                        deleteIngredient()
+                    }
+                    .setNegativeButton("아니오", null)
+                    .show()
             }
             // 수정 버튼
             R.id.updateBtn -> {
-                val intent = Intent(this@IngredientDetailActivity, IngredientUpdateActivity::class.java)
+                val intent = Intent(
+                    this@IngredientDetailActivity,
+                    IngredientUpdateActivity::class.java
+                )
                 intent.putExtra("ingredient", ingredient)
                 startActivity(intent)
                 finish()
@@ -103,5 +106,13 @@ class IngredientDetailActivity : AppCompatActivity() {
         }else{
             Toast.makeText(applicationContext, "잘못된 id입니다.", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    // 뒤로가기 버튼 클릭시 메인으로
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this@IngredientDetailActivity, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }
