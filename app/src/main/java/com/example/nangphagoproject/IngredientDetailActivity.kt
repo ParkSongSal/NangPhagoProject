@@ -48,7 +48,17 @@ class IngredientDetailActivity : AppCompatActivity() {
         if("".equals(ingredient?.id) || ingredient?.id != null){
             id = ingredient?.id
             ingredientNameTxt.text = ingredient?.ingredientName
-            keepKindsTxt.text = ingredient?.keepKinds
+            when(ingredient?.keepKinds){
+                "01"->{
+                    keepKindsTxt.text = "실온"
+                }
+                "02"->{
+                    keepKindsTxt.text = "냉장"
+                }
+                "03"->{
+                    keepKindsTxt.text = "냉동"
+                }
+            }
             kindsTxt.text = ingredient?.kinds
             ingredientCntTxt.text = ingredient?.ingredientCnt
             purchaseDateTxt.text = ingredient?.purchaseDate
