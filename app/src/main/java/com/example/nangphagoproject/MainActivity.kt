@@ -55,8 +55,6 @@ class MainActivity : AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
         })
-        //dummyData(1, "1", "양파", "2", "K01", "2021-11-07", "2021-11-14")
-
 
         mAdapter = IngredientDataAdapter(applicationContext, mDataList)
         recyclerView.adapter = mAdapter
@@ -82,8 +80,6 @@ class MainActivity : AppCompatActivity() {
                 db!!.IngredientDao().getKindsList(keepKinds)[i].shelfLife,
                 db!!.IngredientDao().getKindsList(keepKinds)[i].memoContent
             )
-            //val idIngredient = Ingredient(db!!.IngredientDao().getKindsList(keepKinds)[i].id)
-
             mDataList.add(ingredient)
             mAdapter = IngredientDataAdapter(this@MainActivity, mDataList)
             recyclerView.adapter = mAdapter
@@ -114,21 +110,17 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
     private fun changeView(pos: Int){
         mDataList.clear()
         when (pos) {
             0 -> {
                 getKindsList("01")  // 실온
-                //dummyData(1, "1", "양파", "2", "K01", "2021-11-07", "2021-11-14")
             }
             1 -> {
                 getKindsList("02")  // 냉장
-                //dummyData(2, "2", "대파", "1", "K01", "2021-11-07", "2021-11-14")
             }
             2 -> {
                 getKindsList("03")  // 냉동
-                //dummyData(3, "3", "돼지고기", "2", "K02", "2021-11-07", "2021-11-12")
             }
         }
         mAdapter = IngredientDataAdapter(applicationContext, mDataList)
@@ -138,42 +130,5 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         db = null
         super.onDestroy()
-    }
-
-    private fun dummyData(
-        id: Long,
-        keepKinds: String,
-        ingredientName: String,
-        ingredientCnt: String,
-        kinds: String,
-        purchaseDate: String,
-        shelfLife: String,
-        memoContent : String
-    ){
-
-        val item = Ingredient(
-            id,
-            keepKinds,
-            ingredientName,
-            ingredientCnt,
-            kinds,
-            purchaseDate,
-            shelfLife,
-            memoContent
-        )
-        mDataList.add(item)
-    }
-
-    // Migration 코드
-    private val MIGRATION_3_4 = object : Migration(2, 3) {
-        override fun migrate(database: SupportSQLiteDatabase) {
-            database.execSQL("ALTER TABLE 'Ingredient' ADD COLUMN 'memoContent' String")
-        }
-    }
-    // Migration 코드
-    private val MIGRATION_2_3 = object : Migration(2, 3) {
-        override fun migrate(database: SupportSQLiteDatabase) {
-            database.execSQL("Delete FROM 'Ingredient'")
-        }
     }
 }
