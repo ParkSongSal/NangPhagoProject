@@ -7,19 +7,24 @@ import kotlin.math.abs
 class Common {
 
     /*
-    * kinds 재료 종류
-    * K01 : 채소류
-    * K02 : 육류
-    * K03 : 계란류
-    * K04 : 생선류
+    * keepKinds 재료 종류
+    * 01 : 실온
+    * 02 : 냉장
+    * 03 : 냉동
     * */
-    open fun kindsFormat(kinds: String): String {
+    open fun keepKindsFormat(keepKinds: String): String {
         var result = ""
-        if (kinds != "") {
-            if ("K01" == kinds) {
-                result = "채소류"
-            } else if ("K02" == kinds) {
-                result = "육류"
+        if (keepKinds != "") {
+            when (keepKinds) {
+                "01" -> {
+                    result = "실온"
+                }
+                "02" -> {
+                    result = "냉장"
+                }
+                "03" -> {
+                    result = "냉동"
+                }
             }
         } else {
             result = "미등록"

@@ -41,8 +41,10 @@ open class IngredientDataAdapter(
         viewHolder.ingredientCntTxt.text = mData.get(position).ingredientCnt
 
         val common = Common()
-        val mKinds = common.kindsFormat(mData[position].kinds.toString())
-        viewHolder.kindsTxt.text = mKinds
+        val keepKinds = common.keepKindsFormat(mData[position].keepKinds.toString())
+
+        viewHolder.keepKindsTxt.text = keepKinds
+        viewHolder.kindsTxt.text = mData[position].kinds
         viewHolder.purchaseDateTxt.text = mData[position].purchaseDate
 
         val dDay = common.getShelfLife(mData[position].purchaseDate, mData[position].shelfLife)
@@ -61,6 +63,7 @@ open class IngredientDataAdapter(
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
        var ingredientNameTxt: TextView
        var ingredientCntTxt: TextView
+       var keepKindsTxt : TextView
        var kindsTxt: TextView
        var purchaseDateTxt: TextView
        var dDayTxt : TextView
@@ -68,6 +71,7 @@ open class IngredientDataAdapter(
             // 레이아웃 들고 오기
             val ingredientName = itemView.findViewById<TextView>(R.id.ingredientNameTxt)
             val ingredientCnt = itemView.findViewById<TextView>(R.id.ingredientCntTxt)
+            val keepKinds = itemView.findViewById<TextView>(R.id.keepKindsTxt)
             val kinds = itemView.findViewById<TextView>(R.id.kindsTxt)
             val purchaseDate = itemView.findViewById<TextView>(R.id.purchaseDateTxt)
             val dDay = itemView.findViewById<TextView>(R.id.d_dayTxt)
@@ -75,6 +79,7 @@ open class IngredientDataAdapter(
 
             this.ingredientNameTxt = ingredientName
             this.ingredientCntTxt = ingredientCnt
+            this.keepKindsTxt = keepKinds
             this.kindsTxt = kinds
             this.purchaseDateTxt = purchaseDate
             this.dDayTxt = dDay
