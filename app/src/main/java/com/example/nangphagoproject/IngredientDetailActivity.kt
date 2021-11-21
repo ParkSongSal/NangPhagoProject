@@ -60,7 +60,7 @@ class IngredientDetailActivity : AppCompatActivity() {
                 }
             }
             kindsTxt.text = ingredient?.kinds
-            ingredientCntTxt.text = ingredient?.ingredientCnt
+            ingredientCntTxt.text = ingredient?.ingredientCnt + "ea"
             purchaseDateTxt.text = ingredient?.purchaseDate
             shelfLifeTxt.text = ingredient?.shelfLife
             memoTxt.text = ingredient?.memoContent

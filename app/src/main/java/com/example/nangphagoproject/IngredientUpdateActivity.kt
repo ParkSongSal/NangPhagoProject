@@ -83,6 +83,7 @@ class IngredientUpdateActivity : AppCompatActivity() {
             id = ingredient?.id
 
             ingredientNameEdit?.setText(ingredient?.ingredientName)
+
             when(ingredient?.kinds){
                 "채소류"->{
                     kindsSpinner?.setSelection(0)
@@ -94,7 +95,6 @@ class IngredientUpdateActivity : AppCompatActivity() {
                     kindsSpinner?.setSelection(3)
                 }
             }
-            keepKinds = ingredient?.keepKinds
             when(ingredient?.keepKinds){
                 "01"->{
                     keepKindsBtn1?.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
@@ -106,6 +106,7 @@ class IngredientUpdateActivity : AppCompatActivity() {
                     keepKindsBtn3?.setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent))
                 }
             }
+            ingredientCnt = Integer.parseInt(ingredient?.ingredientCnt)
             ingredientCntEdit?.setText(ingredient?.ingredientCnt)
             purchaseDateEdit?.setText(ingredient?.purchaseDate)
             shelfLifeEdit?.setText(ingredient?.shelfLife)
@@ -212,17 +213,12 @@ class IngredientUpdateActivity : AppCompatActivity() {
     }
     fun onClick(view: View) {
         when(view.id){
+
+            // 취소버튼
             R.id.cancelBtn->{
-                dlg.setTitle("취소 알림")
-                    .setMessage("수정을 그만하고 메인으로 돌아가시겠습니까?")
-                    .setPositiveButton("예") { dialog, which ->
-                        intent = Intent(this@IngredientUpdateActivity, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    }
-                    .setNegativeButton("아니오",null)
-                    .show()
+                cancelEvent()
             }
+            // 수정 처리 버튼
             R.id.saveBtn->{
                 saveIngredient()
             }
@@ -245,7 +241,7 @@ class IngredientUpdateActivity : AppCompatActivity() {
                 }else{
                     ingredientCnt--
                     ingredientCntTxt = ingredientCnt.toString()
-                    ingredientCntEdit?.setText(ingredientCntTxt + "ea")
+                    ingredientCntEdit?.setText(ingredientCntTxt)
                 }
             }
             R.id.plusBtn->{
@@ -254,11 +250,13 @@ class IngredientUpdateActivity : AppCompatActivity() {
                 }else{
                     ingredientCnt++
                     ingredientCntTxt = ingredientCnt.toString()
-                    ingredientCntEdit?.setText(ingredientCntTxt + "ea")
+                    ingredientCntEdit?.setText(ingredientCntTxt)
                 }
             }
         }
     }
+
+    // 저장 처리
     fun saveIngredient(){
         kinds = kindsSpinner?.selectedItem.toString()
         val ingredientName = ingredientNameEdit?.text.toString()
@@ -280,5 +278,26 @@ class IngredientUpdateActivity : AppCompatActivity() {
         Toast.makeText(applicationContext, "수정 되었습니다.", Toast.LENGTH_SHORT).show()
         startActivity(intent)
         finish()
+    }
+
+    fun cancelEvent(){
+        dlg.setTitle("취소 알림")
+        dlg.setMessage("수정을 그만하고 메인으로 돌아가시겠습니까?")
+        dlg.setPositiveButton("예") { dialog, which ->
+                intent = Intent(this@IngredientUpdateActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        dlg.setNegativeButton("아니오",null)
+        dlg.show()
+    }
+    // 뒤로가기 버튼 클릭시 메인으로
+    override fun onBackPressed() {
+        super.onBackPressed()
+        cancelEvent()
+    }
+
+    override fun onStop() {
+        super.onStop()
     }
 }

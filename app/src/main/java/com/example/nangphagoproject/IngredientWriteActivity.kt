@@ -203,7 +203,7 @@ class IngredientWriteActivity : AppCompatActivity() {
                 }else{
                     ingredientCnt--
                     ingredientCntTxt = ingredientCnt.toString()
-                    ingredientCntEdit?.setText(ingredientCntTxt + "ea")
+                    ingredientCntEdit?.setText(ingredientCntTxt)
                 }
             }
             R.id.plusBtn->{
@@ -212,7 +212,7 @@ class IngredientWriteActivity : AppCompatActivity() {
                 }else{
                     ingredientCnt++
                     ingredientCntTxt = ingredientCnt.toString()
-                    ingredientCntEdit?.setText(ingredientCntTxt + "ea")
+                    ingredientCntEdit?.setText(ingredientCntTxt)
                 }
             }
         }

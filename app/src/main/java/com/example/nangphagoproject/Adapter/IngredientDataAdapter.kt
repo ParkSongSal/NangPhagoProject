@@ -40,8 +40,8 @@ open class IngredientDataAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.ingredientNameTxt.text = mData.get(position).ingredientName
-        viewHolder.ingredientCntTxt.text = mData.get(position).ingredientCnt
+        viewHolder.ingredientNameTxt.text = mData[position].ingredientName
+        viewHolder.ingredientCntTxt.text = mData[position].ingredientCnt + "ea"
 
         val common = Common()
         val keepKinds = common.keepKindsFormat(mData[position].keepKinds.toString())

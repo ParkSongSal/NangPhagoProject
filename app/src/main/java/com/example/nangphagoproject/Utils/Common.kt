@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
 
-class Common {
+open class Common {
 
     /*
     * keepKinds 재료 종류
@@ -12,7 +12,7 @@ class Common {
     * 02 : 냉장
     * 03 : 냉동
     * */
-    open fun keepKindsFormat(keepKinds: String): String {
+    open fun keepKindsFormat(keepKinds: String?): String {
         var result = ""
         if (keepKinds != "") {
             when (keepKinds) {
