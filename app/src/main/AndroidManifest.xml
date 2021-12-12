@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NangPhagoProject">
-        <activity android:name=".IngredientUpdateActivity"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity android:name=".IngredientUpdateActivity" />
         <activity android:name=".IngredientDetailActivity" />
-        <activity android:name=".MainActivity" />
         <activity android:name=".IngredientWriteActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>

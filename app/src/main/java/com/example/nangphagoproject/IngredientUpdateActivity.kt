@@ -225,15 +225,20 @@ class IngredientUpdateActivity : AppCompatActivity() {
             // 01 = 실온
             R.id.keepKindsBtn1->{
                 keepKinds = "01"
+                Toast.makeText(applicationContext,"실온",Toast.LENGTH_SHORT).show()
 
             }
             // 02 = 냉장
             R.id.keepKindsBtn2->{
                 keepKinds = "02"
+                Toast.makeText(applicationContext,"냉장",Toast.LENGTH_SHORT).show()
+
             }
             // 03 = 냉동
             R.id.keepKindsBtn3->{
                 keepKinds = "03"
+                Toast.makeText(applicationContext,"냉동",Toast.LENGTH_SHORT).show()
+
             }
             R.id.minusBtn->{
                 if(ingredientCnt == 0){

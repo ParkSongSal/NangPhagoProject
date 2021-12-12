@@ -25,6 +25,11 @@ class IngredientWriteActivity : AppCompatActivity() {
     var purchaseDateEdit : EditText? = null
     var shelfLifeEdit : EditText? = null
     var ingredientCntEdit : EditText? = null
+
+    var keepKindsBtn1 : Button? = null
+    var keepKindsBtn2 : Button? = null
+    var keepKindsBtn3 : Button? = null
+
     var ingredientCnt = 0
     var ingredientCntTxt = ""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +45,11 @@ class IngredientWriteActivity : AppCompatActivity() {
         val memoEdit = findViewById<EditText>(R.id.memoEdit)
         purchaseDateEdit = findViewById<EditText>(R.id.purchaseDateEdit)
         shelfLifeEdit = findViewById<EditText>(R.id.shelfLifeEdit)
+
+        keepKindsBtn1 = findViewById(R.id.keepKindsBtn1)
+        keepKindsBtn2 = findViewById(R.id.keepKindsBtn2)
+        keepKindsBtn3 = findViewById(R.id.keepKindsBtn3)
+
         db = Room.databaseBuilder(this, AppDataBase::class.java, "IngredientTable")
             .allowMainThreadQueries()
             .build()
@@ -188,14 +198,23 @@ class IngredientWriteActivity : AppCompatActivity() {
             // 01 = 실온
             R.id.keepKindsBtn1->{
                 keepKinds = "01"
+                keepKindsBtn1?.isSelected
+                keepKindsBtn1?.setBackgroundColor(resources.getColor(R.color.colorAccent))
+                Toast.makeText(applicationContext,"실온",Toast.LENGTH_SHORT).show()
             }
             // 02 = 냉장
             R.id.keepKindsBtn2->{
                 keepKinds = "02"
+                keepKindsBtn2?.isSelected = true
+                keepKindsBtn2?.setBackgroundColor(resources.getColor(R.color.colorAccent))
+                Toast.makeText(applicationContext,"냉장",Toast.LENGTH_SHORT).show()
             }
             // 03 = 냉동
             R.id.keepKindsBtn3->{
                 keepKinds = "03"
+                keepKindsBtn3?.isSelected = true
+                keepKindsBtn3?.setBackgroundColor(resources.getColor(R.color.colorAccent))
+                Toast.makeText(applicationContext,"냉동",Toast.LENGTH_SHORT).show()
             }
             R.id.minusBtn->{
                 if(ingredientCnt == 0){
