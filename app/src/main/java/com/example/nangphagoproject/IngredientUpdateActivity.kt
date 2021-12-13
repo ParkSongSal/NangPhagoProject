@@ -95,6 +95,7 @@ class IngredientUpdateActivity : AppCompatActivity() {
                     kindsSpinner?.setSelection(3)
                 }
             }
+            keepKinds = ingredient?.keepKinds
             when(ingredient?.keepKinds){
                 "01"->{
                     keepKindsBtn1?.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
